@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
 const Goal = require('../models/goalModel');
+const User = require('../models/userModel');
 
 const goalController = {};
 
@@ -8,7 +9,7 @@ const goalController = {};
 // @route GET /api/goals
 // @access Private
 goalController.getGoals = asyncHandler(async (req, res, next) => {
-    const goals = await Goal.find();
+    const goals = await Goal.find({ user: req.user.id });
 
     res.status(200).json(goals);
 });
@@ -23,7 +24,8 @@ goalController.setGoal = asyncHandler(async (req, res, next) => {
     }
 
     const goal = await Goal.create({
-        text: req.body.text
+      text: req.body.text,
+      user: req.user.id,
     });
 
     res.status(200).json(goal);
@@ -36,12 +38,26 @@ goalController.updateGoal = asyncHandler(async (req, res, next) => {
     const goal = await Goal.findById(req.params.id);
 
     if(!goal) {
-        res.status(400);
-        throw new Error('Goal not found');
+      res.status(400);
+      throw new Error('Goal not found');
+    }
+
+    const user = await User.findById(req.user.id);
+    
+    // Check for user
+    if(!user) {
+      res.status(401);
+      throw new Error('User not found');
+    }
+
+    // Make sure the logged in user matches the goal user
+    if(goal.user.toString() !== user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
     }
 
     const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, { 
-        new: true 
+      new: true 
     });
 
     res.status(200).json(updatedGoal);
@@ -59,6 +75,20 @@ goalController.deleteGoal = asyncHandler(async (req, res, next) => {
         throw new Error('Goal not found');
     }
 
+    const user = await User.findById(req.user.id);
+    
+    // Check for user
+    if(!user) {
+      res.status(401);
+      throw new Error('User not found');
+    }
+
+    // Make sure the logged in user matches the goal user
+    if(goal.user.toString() !== user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
+    }
+    
     await goal.remove()
 
     res.status(200).json({ id: req.params.id });
