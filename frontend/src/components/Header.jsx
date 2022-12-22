@@ -2,6 +2,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
+import Logo from '../assets/images/owen.png';
 
 function Header() {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ function Header() {
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Wow</Link>
+      <img className="api_logo" src={Logo} alt="API Logo" style ={{width: '50px', height: '50px'}} />
+        <Link to='/' className="large-text">Wow</Link>
       </div>
       <ul>
         {user ? (
