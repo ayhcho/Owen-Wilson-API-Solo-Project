@@ -48,8 +48,8 @@ h3 {
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #e6e6e6;
-  margin-bottom: 60px;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 20px;
 }
 
 .header ul {
@@ -139,7 +139,7 @@ h3 {
   padding: 10px 20px;
   border: 1px solid #000;
   border-radius: 5px;
-  background: #000;
+  background: rgb(0, 0, 0);
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -241,4 +241,25 @@ h3 {
   justify-content: center;
   overflow: hidden;
   margin: 0 0 2rem 0;
+}
+
+.wow-button {
+  margin-top: 25px;
+  width: 250px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #000;
+  color:#e6e6e6;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#root {
+  background-color: antiquewhite;
+  display: flex;
+  height: 100%;
+}
+
+.information ul {
+  font-weight: bold;
 }

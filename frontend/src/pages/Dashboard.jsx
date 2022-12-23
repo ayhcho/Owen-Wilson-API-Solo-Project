@@ -95,7 +95,7 @@ function Dashboard() {
                     playing={videoPlaying}
                     onClickPreview={() => changeVideoPlaying(true)}
                     onEnded={() => changeVideoPlaying(false)}
-                    url={exampleJSON.video["480p"]}
+                    url={exampleJSON.video["1080p"]}
                     controls={true}
                     light={exampleJSON.poster}
                     style={{ maxWidth: "600px", overflow: "hidden" }}
@@ -104,11 +104,27 @@ function Dashboard() {
               </div>
               <div className="refresh-button-wrapper">
                 <button className="wow-button" type="button" onClick={getExample}>
-                  Be WOWED
+                  Generate new WOW
                 </button>
               </div>
             </div>
     </div>
+    <div className='information'>
+        <ul>
+          <li>
+            Movie: {exampleJSON.movie}
+          </li>
+          <li>
+            Year: {exampleJSON.year}
+          </li>
+          <li>
+            Time Stamp: {exampleJSON.timestamp}
+          </li>
+          <li>
+            Full Line: "{exampleJSON.full_line}"
+          </li>
+        </ul>
+      </div>
   </>
   )
 }
